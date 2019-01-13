@@ -2,13 +2,13 @@ package pojos;
 import javax.persistence.*;
 
 @Embeddable
-public class ContactInfo {
+public class Subscription {
 	private String regNo;
 	private double price;
-	public ContactInfo() {
+	public Subscription() {
 		System.out.println("in vehicle constr");
 	}
-	public ContactInfo(String regNo, double price) {
+	public Subscription(String regNo, double price) {
 		super();// TODO Auto-generated constructor stub
 		this.regNo = regNo;
 		this.price = price;
