@@ -23,7 +23,7 @@ public class GymTrainer {
 	
 	
 	public GymTrainer() {
-		System.out.println("in gymMember constr");
+		System.out.println("in gymtrainer constr");
 	}
 	
 	
@@ -54,7 +54,7 @@ public class GymTrainer {
 	}
 	
 
-	@Column(name="user_name",length=50)
+	@Column(name="tuser_name",length=50)
 	public String getUserName() {
 		return userName;
 	}
@@ -62,7 +62,7 @@ public class GymTrainer {
 	public void setUserName(String userName) {
 		this.userName = userName;
 	}
-	@Column(name="phone",length=50)
+	@Column(name="tphone",length=50)
 	public String getTrainerPhone() {
 		return trainerPhone;
 	}
@@ -93,7 +93,7 @@ public class GymTrainer {
 	}
 
 
-	@Column(length=50,unique=true,name="email")
+	@Column(length=50,unique=true,name="temail")
 	public String getTrainerEmail() {
 		return trainerEmail;
 	}
@@ -105,7 +105,7 @@ public class GymTrainer {
 	}
 
 
-	@Column(name="salary",columnDefinition="double(7,1)")
+	@Column(name="tsalary",columnDefinition="double(7,1)")
 	public double getSalary() {
 		return salary;
 	}
@@ -117,7 +117,7 @@ public class GymTrainer {
 	}
 
 
-	@Column(name="password",length=50)
+	@Column(name="tpassword",length=50)
 	public String getPassword() {
 		return password;
 	}

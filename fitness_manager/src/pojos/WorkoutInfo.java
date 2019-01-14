@@ -9,10 +9,10 @@ import javax.persistence.*;
 
 
 @Entity
-@Table(name="workout_plan")
+@Table(name="workout_info")
 public class WorkoutInfo {
 	private Integer workoutId;
-	private  GymMember memberId;
+	private  GymMember myId;
 	private String activityName;
 	private String weight;
 	private String reps;
@@ -38,13 +38,13 @@ public class WorkoutInfo {
 
 	@ManyToOne 
 	@JoinColumn(name="member_id")
-	public GymMember getMemberId() {
-		return memberId;
+	public GymMember getMyId() {
+		return myId;
 	}
 
 
-	public void setMemberId(GymMember memberId) {
-		this.memberId = memberId;
+	public void setMyId(GymMember myId) {
+		this.myId = myId;
 	}
 
 	@Column(length=100,name="activity_name")
@@ -100,7 +100,7 @@ public class WorkoutInfo {
 
 	@Override
 	public String toString() {
-		return "WorkoutInfo [workoutId=" + workoutId + ", memberId=" + memberId + ", activityName=" + activityName
+		return "WorkoutInfo [workoutId=" + workoutId + ", memberId=" + myId + ", activityName=" + activityName
 				+ ", weight=" + weight + ", reps=" + reps + ", steps=" + steps + ", dateOfRecord=" + dateOfRecord + "]";
 	}
 	

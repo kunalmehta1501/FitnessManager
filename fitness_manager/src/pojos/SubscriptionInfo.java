@@ -3,9 +3,11 @@ import java.util.Date;
 
 import javax.persistence.*;
 
-@Embeddable
+@Entity
+@Table(name="subscription_info")
 public class SubscriptionInfo {
-	
+private GymMember gymSubscribe;
+private Integer subscriptionId;
 	private String trainerAlloted;
 	private String programName;
 	private double amountPaid;
@@ -23,6 +25,17 @@ public class SubscriptionInfo {
 		this.beginDate = beginDate;
 		this.endDate = endDate;
 	}
+	@Id
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	@Column(name="subscription_id")
+	public Integer getSubscriptionId() {
+		return subscriptionId;
+	}
+
+	public void setSubscriptionId(Integer subscriptionId) {
+		this.subscriptionId = subscriptionId;
+	}
+
 	@Column(name="trainer_alloted")
 	public String getTrainerAlloted() {
 		return trainerAlloted;
@@ -64,6 +77,19 @@ public class SubscriptionInfo {
 
 	public void setEndDate(Date endDate) {
 		this.endDate = endDate;
+	}
+
+	public void setTrainerAlloted(String trainerAlloted) {
+		this.trainerAlloted = trainerAlloted;
+	}
+	@ManyToOne 
+	@JoinColumn(name="gym_subscribe_id") 
+	public GymMember getGymSubscribe() {
+		return gymSubscribe;
+	}
+
+	public void setGymSubscribe(GymMember gymSubscribe) {
+		this.gymSubscribe = gymSubscribe;
 	}
 
 

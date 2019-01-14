@@ -1,8 +1,12 @@
 package pojos;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Date;
 import java.util.List;
 import javax.persistence.*;
+
+import org.hibernate.annotations.LazyCollection;
+import org.hibernate.annotations.LazyCollectionOption;
 
 import pojos.SubscriptionInfo;
 
@@ -14,11 +18,15 @@ public class GymMember {
 	private String memberName;
 	private String userName;
 	private String password;
-	private String dob;
+	private Date dob;
 	private String memberEmail;
 	private String memberPhone;
 	private String address;
-	private byte[] photo;	
+	private byte[] photo;
+	private List<DietInfo> dietInfo=new ArrayList<>();
+	private List<MeasurementInfo> measurementInfo=new ArrayList<>();
+	private List<WorkoutInfo> workOutInfo=new ArrayList<>();
+	
 
 	private List<SubscriptionInfo> subscriptionInfo=new ArrayList<>();
 	public GymMember() {
@@ -26,7 +34,7 @@ public class GymMember {
 	}
 	
 	public GymMember(String memberName, String userName, String memberEmail, String memberPhone, 
-			String address,String password,String dob) {
+			String address,String password,Date dob) {
 		super();
 		this.memberName = memberName;
 		this.userName = userName;
@@ -93,30 +101,22 @@ public class GymMember {
 		return photo;
 	}
 
-	@Column(name="password",length=50)
-	public String getPassWord() {
-		return password;
-	}
-
-	public void setPassWord(String passWord) {
-		this.password = passWord;
-	}
 	
 	@Temporal(TemporalType.DATE)
 	@Column(name="dob")
-	public String getDob() {
+	public Date getDob() {
 		return dob;
 	}
 
-	public void setDob(String dob) {
+	public void setDob(Date dob) {
 		this.dob = dob;
 	}
 
 	public void setPhoto(byte[] photo) {
 		this.photo = photo;
 	}
-	@ElementCollection 
-	@CollectionTable(name="subscription_info",joinColumns=@JoinColumn(name="m_id"))
+	@LazyCollection(LazyCollectionOption.FALSE)
+	@OneToMany(mappedBy="gymSubscribe",cascade=CascadeType.ALL/*,fetch=FetchType.EAGER*/)
 	public List<SubscriptionInfo> getSubscriptionInfo() {
 		return subscriptionInfo;
 	}
@@ -124,18 +124,54 @@ public class GymMember {
 	public void setSubscriptionInfo(List<SubscriptionInfo> subscriptionInfo) {
 		this.subscriptionInfo = subscriptionInfo;
 	}
+	@Column(name="password",length=50)
+	public String getPassword() {
+		return password;
+	}
 
-	@Override
-	public String toString() {
-		return "GymMember [memberId=" + memberId + ", membername=" + memberName + ", userName=" + userName
-				+ ", password=" + password + ", dob=" + dob + ", memberEmail=" + memberEmail + ", memberPhone="
-				+ memberPhone + ", address=" + address + ", photo=" + Arrays.toString(photo) + ", subscriptionInfo="
-				+ subscriptionInfo + "]";
+	public void setPassword(String password) {
+		this.password = password;
+	}
+	@LazyCollection(LazyCollectionOption.FALSE)
+	@OneToMany(mappedBy="memberId",cascade=CascadeType.ALL/*,fetch=FetchType.EAGER*/)
+	public List<DietInfo> getDietInfo() {
+		return dietInfo;
+	}
+
+	public void setDietInfo(List<DietInfo> dietInfo) {
+		this.dietInfo = dietInfo;
+	}
+	@LazyCollection(LazyCollectionOption.FALSE)
+	@OneToMany(mappedBy="gymMember",cascade=CascadeType.ALL/*,fetch=FetchType.EAGER*/)
+	public List<MeasurementInfo> getMeasurementInfo() {
+		return measurementInfo;
+	}
+
+	public void setMeasurementInfo(List<MeasurementInfo> measurementInfo) {
+		this.measurementInfo = measurementInfo;
+	}
+	@LazyCollection(LazyCollectionOption.FALSE)
+	@OneToMany(mappedBy="myId",cascade=CascadeType.ALL/*,fetch=FetchType.EAGER*/)
+	public List<WorkoutInfo> getWorkOutInfo() {
+		return workOutInfo;
+	}
+
+
+	public void setWorkOutInfo(List<WorkoutInfo> workOutInfo) {
+		this.workOutInfo = workOutInfo;
 	}
 
 	
 	
-	
+
+	@Override
+	public String toString() {
+		return "GymMember [memberId=" + memberId + ", memberName=" + memberName + ", userName=" + userName
+				+ ", password=" + password + ", dob=" + dob + ", memberEmail=" + memberEmail + ", memberPhone="
+				+ memberPhone + ", address=" + address + ", photo=" + Arrays.toString(photo) + ", dietInfo=" + dietInfo
+				+ ", measurementInfo=" + measurementInfo + ", workOutInfo=" + workOutInfo + ", subscriptionInfo="
+				+ subscriptionInfo + "]";
+	}
 
 	
 

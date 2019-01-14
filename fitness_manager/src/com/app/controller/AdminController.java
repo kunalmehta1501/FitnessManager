@@ -16,22 +16,34 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.app.dao.StudentDao;
+import com.app.dao.AdminDao;
+import com.app.service.AdminService;
+import com.app.service.AdminServiceImpl;
 
-import pojos.Student;
+import pojos.GymMember;
+
 
 @RestController
-@RequestMapping("/students")
-public class StudentController {
+@RequestMapping("/admin")
+public class AdminController {
 	// dependency
+	
 	@Autowired
-	private StudentDao dao;
+	private AdminService aService;
 
 	@PostConstruct
 	public void init() {
-		System.out.println("in init " + dao);
+		System.out.println("in init " + aService);
 	}
-
+	
+	@PostMapping
+	public String registerGymMember(@RequestBody GymMember gm) {
+		System.out.println("srvr : reg student  " + gm);
+		return aService.registerGymMember(gm);
+	}
+	
+	
+/*
 	// get student resource
 	@GetMapping("/{sid}")
 	public ResponseEntity<?> getStudentDetails(@PathVariable int sid) {
@@ -70,6 +82,6 @@ public class StudentController {
 		System.out.println("srvr : update student  " + s);
 		return dao.updateStudent(s);
 
-	}
+	}*/
 
 }

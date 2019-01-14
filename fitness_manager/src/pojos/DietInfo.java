@@ -7,7 +7,7 @@ import javax.persistence.*;
 
 
 @Entity
-@Table(name="workout_info")
+@Table(name="diet_info")
 public class DietInfo{
 	private Integer dietId;
 	private  GymMember memberId;
