@@ -5,6 +5,7 @@ import javax.persistence.*;
 
 @Embeddable
 public class SubscriptionInfo {
+	
 	private String trainerAlloted;
 	private String programName;
 	private double amountPaid;

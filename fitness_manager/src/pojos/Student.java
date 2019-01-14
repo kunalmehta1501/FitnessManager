@@ -1,6 +1,6 @@
 package pojos;
-
-import java.util.Date;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.persistence.*;
 
@@ -8,12 +8,13 @@ import javax.persistence.*;
 @Table(name="cdac_students")
 public class Student {
 	private Integer studentId;
-	private String email,password;
-	private double regFees;
-	private String name;
-	private Date dob;
-	
-	
+	private String email;
+	private Course myCourse;
+	private Integer idd;
+	//one-to-one association between entity n value type(component)
+	private AdharCard card;
+	//one-to-many association between entity n value type(component)
+	private List<Vehicle> vehicles=new ArrayList<>();
 	
 	public Student() {
 		System.out.println("in stud constr");
@@ -28,7 +29,6 @@ public class Student {
 	public Integer getStudentId() {
 		return studentId;
 	}
-	
 	public void setStudentId(Integer studentId) {
 		this.studentId = studentId;
 	}
@@ -39,34 +39,28 @@ public class Student {
 	public void setEmail(String email) {
 		this.email = email;
 	}
-	
-	@Column(length=20)
-	public String getName() {
-		return name;
+	@ManyToOne //mandatory o.w MappingExc
+	@JoinColumn(name="c_id") //FK col. details optional BUT reco
+	public Course getMyCourse() {
+		return myCourse;
 	}
-	public void setName(String name) {
-		this.name = name;
+	public void setMyCourse(Course myCourse) {
+		this.myCourse = myCourse;
 	}
-	@Temporal(TemporalType.DATE)
-	public Date getDob() {
-		return dob;
+	@Embedded //OPTIONAL
+	public AdharCard getCard() {
+		return card;
 	}
-	public void setDob(Date dob) {
-		this.dob = dob;
+	public void setCard(AdharCard card) {
+		this.card = card;
 	}
-	@Column(length=10)
-	public String getPassword() {
-		return password;
+	@ElementCollection //mandatory
+	@CollectionTable(name="stud_vehicles",joinColumns=@JoinColumn(name="s_id"))//optional but reco.
+	public List<Vehicle> getVehicles() {
+		return vehicles;
 	}
-	public void setPassword(String password) {
-		this.password = password;
-	}
-	@Column(name="fees",columnDefinition="double(7,1)")
-	public double getRegFees() {
-		return regFees;
-	}
-	public void setRegFees(double regFees) {
-		this.regFees = regFees;
+	public void setVehicles(List<Vehicle> vehicles) {
+		this.vehicles = vehicles;
 	}
 	@Override
 	public String toString() {
