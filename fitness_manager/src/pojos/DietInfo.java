@@ -1,91 +1,125 @@
 package pojos;
 
-import java.util.Date;
 
-public class DietInfo {
-	private Integer id;
-	private String name,email,password,role;
-	private double regAmount;
-	private Date regDate;
+import javax.persistence.*;
+
+
+
+
+@Entity
+@Table(name="workout_info")
+public class DietInfo{
+	private Integer dietId;
+	private  GymMember memberId;
+	private String breakfast;
+	private String lunch;
+	private String dinner;
+	private String snack;
+	private String dessert;
 	
 	public DietInfo() {
-		System.out.println("in vendor constr");
+		System.out.println("inside default DietPlan");
 	}
-
-	public DietInfo(Integer id, String name, String email, String password, String role, double regAmount, Date regDate) {
+	
+	
+	//one-to-many association between entity n value type(component)
+	//private List<Vehicle> vehicles=new ArrayList<>();
+	
+	
+	
+	
+	
+	public DietInfo(String breakfast, String lunch, String dinner, String snack, String dessert) {
 		super();
-		this.id = id;
-		this.name = name;
-		this.email = email;
-		this.password = password;
-		this.role = role;
-		this.regAmount = regAmount;
-		this.regDate = regDate;
+		this.breakfast = breakfast;
+		this.lunch = lunch;
+		this.dinner = dinner;
+		this.snack = snack;
+		this.dessert = dessert;
+	}
+	
+	
+	@Id	
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	@Column(name="diet_id")
+	public Integer getDietId() {
+		return dietId;
 	}
 
-	public Integer getId() {
-		return id;
+
+	public void setDietId(Integer dietId) {
+		this.dietId = dietId;
+	}
+	@ManyToOne 
+	@JoinColumn(name="member_id") 
+	public GymMember getMemberId() {
+		return memberId;
 	}
 
-	public void setId(Integer id) {
-		this.id = id;
+
+	public void setMemberId(GymMember memberId) {
+		this.memberId = memberId;
 	}
 
-	public String getName() {
-		return name;
+	@Column(length=100,name="breakfast")
+	public String getBreakfast() {
+		return breakfast;
 	}
 
-	public void setName(String name) {
-		this.name = name;
+	public void setBreakfast(String breakfast) {
+		this.breakfast = breakfast;
 	}
 
-	public String getEmail() {
-		return email;
+	@Column(length=100,name="lunch")
+	public String getLunch() {
+		return lunch;
 	}
 
-	public void setEmail(String email) {
-		this.email = email;
+
+	public void setLunch(String lunch) {
+		this.lunch = lunch;
 	}
 
-	public String getPassword() {
-		return password;
+	@Column(length=100,name="dinner")
+	public String getDinner() {
+		return dinner;
 	}
 
-	public void setPassword(String password) {
-		this.password = password;
+
+	public void setDinner(String dinner) {
+		this.dinner = dinner;
 	}
 
-	public String getRole() {
-		return role;
+	@Column(length=100,name="snack")
+	public String getSnack() {
+		return snack;
 	}
 
-	public void setRole(String role) {
-		this.role = role;
+
+	public void setSnack(String snack) {
+		this.snack = snack;
 	}
 
-	public double getRegAmount() {
-		return regAmount;
+	@Column(length=100,name="dessert")
+	public String getDessert() {
+		return dessert;
 	}
 
-	public void setRegAmount(double regAmount) {
-		this.regAmount = regAmount;
+
+	public void setDessert(String dessert) {
+		this.dessert = dessert;
 	}
 
-	public Date getRegDate() {
-		return regDate;
-	}
-
-	public void setRegDate(Date regDate) {
-		this.regDate = regDate;
-	}
 
 	@Override
 	public String toString() {
-		return "User [id=" + id + ", name=" + name + ", email=" + email + ", role=" + role
-				+ ", regAmount=" + regAmount + ", regDate=" + regDate + "]";
+		return "DietPlan [DietId=" + dietId + ", memberId=" + memberId + ", breakfast=" + breakfast + ", lunch=" + lunch
+				+ ", dinner=" + dinner + ", snack=" + snack + ", dessert=" + dessert + "]";
 	}
+
+
 	
 	
 	
-		
 }
+
