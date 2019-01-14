@@ -16,6 +16,8 @@ public class GymMember {
 	private String memberId;
 	private String membername;
 	private String userName;
+	private String password;
+	private String dob;
 	private String memberEmail;
 	private String memberPhone;
 	private String address;
@@ -27,13 +29,15 @@ public class GymMember {
 	}
 	
 	public GymMember(String membername, String userName, String memberEmail, String memberPhone, 
-			String address) {
+			String address,String password,String dob) {
 		super();
 		this.membername = membername;
 		this.userName = userName;
 		this.memberEmail = memberEmail;
 		this.memberPhone = memberPhone;
 		this.address = address;
+		this.dob = dob;
+		this.password = password;
 		
 	}
 
@@ -92,6 +96,25 @@ public class GymMember {
 		return photo;
 	}
 
+	@Column(name="password",length=50)
+	public String getPassWord() {
+		return password;
+	}
+
+	public void setPassWord(String passWord) {
+		this.password = passWord;
+	}
+	
+	@Temporal(TemporalType.DATE)
+	@Column(name="dob")
+	public String getDob() {
+		return dob;
+	}
+
+	public void setDob(String dob) {
+		this.dob = dob;
+	}
+
 	public void setPhoto(byte[] photo) {
 		this.photo = photo;
 	}
@@ -108,9 +131,12 @@ public class GymMember {
 	@Override
 	public String toString() {
 		return "GymMember [memberId=" + memberId + ", membername=" + membername + ", userName=" + userName
-				+ ", memberEmail=" + memberEmail + ", memberPhone=" + memberPhone + ", address=" + address + ", photo="
-				+ Arrays.toString(photo) + ", subscriptionInfo=" + subscriptionInfo + "]";
+				+ ", password=" + password + ", dob=" + dob + ", memberEmail=" + memberEmail + ", memberPhone="
+				+ memberPhone + ", address=" + address + ", photo=" + Arrays.toString(photo) + ", subscriptionInfo="
+				+ subscriptionInfo + "]";
 	}
+
+	
 	
 	
 
