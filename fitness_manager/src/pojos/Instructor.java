@@ -9,10 +9,10 @@ import javax.persistence.*;
 
 
 @Entity
-@Table(name="gym_trainer")
-public class GymTrainer {
+@Table(name="instructor")
+public class Instructor {
 	
-	private String trainerId;
+	private Integer trainerId;
 	private String trainerName;
 	private String userName;
 	private String trainerEmail;
@@ -22,13 +22,13 @@ public class GymTrainer {
 	private byte[] photo;	
 	
 	
-	public GymTrainer() {
+	public Instructor() {
 		System.out.println("in gymtrainer constr");
 	}
 	
 	
 
-	public GymTrainer(String trainerName, String userName, String trainerEmail, String trainerPhone, double salary,
+	public Instructor(String trainerName, String userName, String trainerEmail, String trainerPhone, double salary,
 			String password, byte[] photo) {
 		super();
 		this.trainerName = trainerName;
@@ -45,11 +45,11 @@ public class GymTrainer {
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	@Column(name="trainer_id")
-	public String getTrainerId() {
+	public Integer getTrainerId() {
 		return trainerId;
 	}
 	
-	public void setTrainerId(String trainerId) {
+	public void setTrainerId(Integer trainerId) {
 		this.trainerId = trainerId;
 	}
 	

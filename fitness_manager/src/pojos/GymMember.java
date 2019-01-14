@@ -14,7 +14,7 @@ import pojos.SubscriptionInfo;
 @Table(name="gym_member")
 public class GymMember {
 	
-	private String memberId;
+	private Integer memberId;
 	private String memberName;
 	private String userName;
 	private String password;
@@ -49,11 +49,11 @@ public class GymMember {
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	@Column(name="member_id")
-	public String getMemberId() {
+	public Integer getMemberId() {
 		return memberId;
 	}
 	
-	public void setMemberId(String memberId) {
+	public void setMemberId(Integer memberId) {
 		this.memberId = memberId;
 	}
 

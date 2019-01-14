@@ -1,0 +1,22 @@
+//indeces
+//index on user_name of gym_member table
+
+create index i_gym_member_username on gym_member(user_name);
+
+//index on tuser_name of instructor table
+create index i_instructor_tusername on instructor(tuser_name);
+
+//triggers 
+
+//triggers on gym_member
+
+//afterInsert for loginTable
+
+delimiter //
+create trigger unamePass
+after insert
+on gym_member for each row
+begin
+insert into login_table values(new.user_name,new.password,"member");
+end;
+delimiter ;
