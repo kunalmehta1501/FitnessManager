@@ -2,17 +2,17 @@ package pojos;
 
 import java.util.Date;
 
-public class User {
+public class DietInfo {
 	private Integer id;
 	private String name,email,password,role;
 	private double regAmount;
 	private Date regDate;
 	
-	public User() {
+	public DietInfo() {
 		System.out.println("in vendor constr");
 	}
 
-	public User(Integer id, String name, String email, String password, String role, double regAmount, Date regDate) {
+	public DietInfo(Integer id, String name, String email, String password, String role, double regAmount, Date regDate) {
 		super();
 		this.id = id;
 		this.name = name;
