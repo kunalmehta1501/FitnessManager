@@ -1,20 +1,17 @@
 package pojos;
-
 import java.util.ArrayList;
 import java.util.Arrays;
-
-import pojos.SubscriptionInfo;
 import java.util.List;
 import javax.persistence.*;
 
-
+import pojos.SubscriptionInfo;
 
 @Entity
 @Table(name="gym_member")
 public class GymMember {
 	
 	private String memberId;
-	private String membername;
+	private String memberName;
 	private String userName;
 	private String password;
 	private String dob;
@@ -22,16 +19,16 @@ public class GymMember {
 	private String memberPhone;
 	private String address;
 	private byte[] photo;	
+
 	private List<SubscriptionInfo> subscriptionInfo=new ArrayList<>();
-	
 	public GymMember() {
 		System.out.println("in gymMember constr");
 	}
 	
-	public GymMember(String membername, String userName, String memberEmail, String memberPhone, 
+	public GymMember(String memberName, String userName, String memberEmail, String memberPhone, 
 			String address,String password,String dob) {
 		super();
-		this.membername = membername;
+		this.memberName = memberName;
 		this.userName = userName;
 		this.memberEmail = memberEmail;
 		this.memberPhone = memberPhone;
@@ -60,12 +57,12 @@ public class GymMember {
 		this.memberEmail = memberEmail;
 	}
 	@Column(name="name",length=50)
-	public String getMembername() {
-		return membername;
+	public String getMemberName() {
+		return memberName;
 	}
 
-	public void setMembername(String membername) {
-		this.membername = membername;
+	public void setMemberName(String memberName) {
+		this.memberName = memberName;
 	}
 	@Column(name="user_name",length=50)
 	public String getUserName() {
@@ -130,7 +127,7 @@ public class GymMember {
 
 	@Override
 	public String toString() {
-		return "GymMember [memberId=" + memberId + ", membername=" + membername + ", userName=" + userName
+		return "GymMember [memberId=" + memberId + ", membername=" + memberName + ", userName=" + userName
 				+ ", password=" + password + ", dob=" + dob + ", memberEmail=" + memberEmail + ", memberPhone="
 				+ memberPhone + ", address=" + address + ", photo=" + Arrays.toString(photo) + ", subscriptionInfo="
 				+ subscriptionInfo + "]";
