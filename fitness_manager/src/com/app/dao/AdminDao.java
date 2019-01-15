@@ -27,6 +27,7 @@ public interface AdminDao {
 	String addSubscription(SubscriptionInfo s);
 	Instructor getInstructorByUser(String username);
 	GymMember getMemberByUser(String username);
+	String updateInstructor(Instructor ins);
 	
 	
 	

@@ -25,6 +25,7 @@ import com.app.service.AdminService;
 import pojos.GymMember;
 import pojos.Instructor;
 import pojos.Login;
+import pojos.SubscriptionInfo;
 
 @CrossOrigin
 @EnableWebMvc
@@ -122,57 +123,25 @@ public class AdminController {
 		System.out.println("srvr : del Instructor dtls " + tid);
 		return aService.deleteInstructor(aService.getInstructorDetails(tid));
 	}
-	@PutMapping("/instructor")
+	@PutMapping("/member")
 	public String updateMember(@RequestBody GymMember gm) {
 		System.out.println("srvr : update Member " + gm);
 		return aService.updateMember(gm);
 
 	}
-	/*@PutMapping("/instructor")
+	@PutMapping("/instructor")
 	public String updateInstructor(@RequestBody Instructor ins) {
 		System.out.println("srvr : update Instructor " + ins);
-		return aService.upda)(ins);
+		return aService.updateInstructor(ins);
 
-	}*/
-/*
-	// get student resource
-	@GetMapping("/{sid}")
-	public ResponseEntity<?> getStudentDetails(@PathVariable int sid) {
-		System.out.println("srvr : get stud dtls " + sid);
-		Student s = dao.getStudentDetails(sid);
-		if (s != null)
-			return new ResponseEntity<Student>(s, HttpStatus.OK);
-		else // invalid id
-			return new ResponseEntity<String>("Invalid Student ID " + sid, HttpStatus.NOT_FOUND);
 	}
-
-	// get all student dtls
-	@GetMapping
-	public List<Student> getAllStudentDetails() {
-		System.out.println("srvr : get stud dtls ");
-		return dao.getAllStudentDetails();
+	@PostMapping(value="/addSubscription")
+	public ResponseEntity<?> addSubscription(@RequestBody SubscriptionInfo sub)
+	{
+		String str=aService.addSubscription(sub);
+		if(str!=null)
+			return new ResponseEntity<String>(str,HttpStatus.CREATED);
+		return new ResponseEntity<String>("something went wrong ",HttpStatus.NOT_FOUND);
 	}
-
-	// create new student resource
-	@PostMapping
-	public String registerStudent(@RequestBody Student s) {
-		System.out.println("srvr : reg student  " + s);
-		return dao.registerStudent(s);
-	}
-
-	// delete student record
-	@DeleteMapping("/{sid}")
-	public String deleteStudentDetails(@PathVariable int sid) {
-		System.out.println("srvr : del stud dtls " + sid);
-		return dao.deleteStudent(dao.getStudentDetails(sid));
-	}
-
-	// update existing student resource
-	@PutMapping
-	public String updateStudent(@RequestBody Student s) {
-		System.out.println("srvr : update student  " + s);
-		return dao.updateStudent(s);
-
-	}*/
 
 }

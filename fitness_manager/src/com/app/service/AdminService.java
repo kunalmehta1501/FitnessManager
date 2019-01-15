@@ -22,4 +22,5 @@ public interface AdminService {
 	String deleteInstructor(Instructor ins);
 	String updateMember(GymMember gm);
 	String addSubscription(SubscriptionInfo s);
+	String updateInstructor(Instructor ins);
 }

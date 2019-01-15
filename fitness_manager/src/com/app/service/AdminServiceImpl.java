@@ -67,6 +67,11 @@ public class AdminServiceImpl implements AdminService {
 		return aDao.updateMember(gm);
 	}
 	@Override
+	public String updateInstructor(Instructor ins) {
+		// TODO Auto-generated method stub
+		return aDao.updateInstructor(ins);
+	}
+	@Override
 	public String addSubscription(SubscriptionInfo s) {
 		// TODO Auto-generated method stub
 		return aDao.addSubscription(s);
