@@ -161,7 +161,50 @@ public class GymMember {
 		this.workOutInfo = workOutInfo;
 	}
 
+	//convi methods
+	public void addSubscription(SubscriptionInfo s)
+	{
+		subscriptionInfo.add(s);
+		s.setGymSubscribe(this);
+	}
+	public void removeSubscription(SubscriptionInfo s)
+	{
+		subscriptionInfo.remove(s);
+		s.setGymSubscribe(null);
+	}
 	
+	public void addMeasurement(MeasurementInfo m)
+	{
+		measurementInfo.add(m);
+		m.setGymMember(this);
+	}
+	public void removeSubscription(MeasurementInfo m)
+	{
+		measurementInfo.remove(m);
+		m.setGymMember(null);
+	}
+	public void addDiet(DietInfo d)
+	{
+		dietInfo.add(d);
+		d.setMemberId(this);
+	}
+	public void removeDiet(DietInfo d)
+	{
+		
+		dietInfo.remove(d);
+		d.setMemberId(null);
+	}
+	public void addWorkOut(WorkoutInfo w)
+	{
+		workOutInfo.add(w);
+		
+		w.setMyId(this);
+	}
+	public void removeWorkOut(WorkoutInfo w)
+	{
+		workOutInfo.remove(w);
+		w.setMyId(null);
+	}
 	
 
 	@Override

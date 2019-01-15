@@ -1,10 +1,14 @@
 package pojos;
 
 
+import java.util.ArrayList;
 import java.util.Arrays;
-
+import java.util.List;
 
 import javax.persistence.*;
+
+import org.hibernate.annotations.LazyCollection;
+import org.hibernate.annotations.LazyCollectionOption;
 
 
 
@@ -20,6 +24,7 @@ public class Instructor {
 	private double salary;
 	private String password;
 	private byte[] photo;	
+	private List<SubscriptionInfo> subscriptionInfo=new ArrayList<>();
 	
 	
 	public Instructor() {
@@ -126,6 +131,19 @@ public class Instructor {
 
 	public void setPassword(String password) {
 		this.password = password;
+	}
+
+
+	@LazyCollection(LazyCollectionOption.FALSE)
+	@OneToMany(mappedBy="gymSubscribe",cascade=CascadeType.ALL/*,fetch=FetchType.EAGER*/)
+	public List<SubscriptionInfo> getSubscriptionInfo() {
+		return subscriptionInfo;
+	}
+
+
+
+	public void setSubscriptionInfo(List<SubscriptionInfo> subscriptionInfo) {
+		this.subscriptionInfo = subscriptionInfo;
 	}
 
 

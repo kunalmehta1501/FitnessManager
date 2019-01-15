@@ -1,11 +1,14 @@
 package com.app.dao;
 
+import java.util.List;
+
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
-import org.springframework.transaction.annotation.Transactional;
+
 
 import pojos.GymMember;
+import pojos.Instructor;
 
 
 @Repository
@@ -21,7 +24,18 @@ public class AdminDaoImpl implements AdminDao {
 		return "Student reged successfully with id "+gm.getMemberId();
 		
 	}
+	@Override
+	public List<GymMember> getAllMemberDetails() {
+		String jpql = "select m from GymMember m";
+		return factory.getCurrentSession().createQuery(jpql, GymMember.class).getResultList();
+	}
+	
 
+	@Override
+	public List<Instructor> getAllInstructorDetails() {
+		String jpql = "select ins from Instructor ins";
+		return factory.getCurrentSession().createQuery(jpql, Instructor.class).getResultList();
+	}
 	
 	/*
 	@Override

@@ -8,11 +8,12 @@ import javax.persistence.*;
 public class SubscriptionInfo {
 private GymMember gymSubscribe;
 private Integer subscriptionId;
-	private String trainerAlloted;
+	
 	private String programName;
 	private double amountPaid;
 	private Date beginDate;
 	private Date endDate;
+	private Instructor instructor;
 	
 	public SubscriptionInfo() {
 		System.out.println("in vehicle constr");
@@ -36,14 +37,7 @@ private Integer subscriptionId;
 		this.subscriptionId = subscriptionId;
 	}
 
-	@Column(name="trainer_alloted")
-	public String getTrainerAlloted() {
-		return trainerAlloted;
-	}
 
-	public void setProgramId(String trainerAlloted) {
-		this.trainerAlloted = trainerAlloted;
-	}
 	@Column(name="program_name")
 	public String getProgramName() {
 		return programName;
@@ -79,9 +73,7 @@ private Integer subscriptionId;
 		this.endDate = endDate;
 	}
 
-	public void setTrainerAlloted(String trainerAlloted) {
-		this.trainerAlloted = trainerAlloted;
-	}
+
 	@ManyToOne 
 	@JoinColumn(name="gym_subscribe_id") 
 	public GymMember getGymSubscribe() {
@@ -90,6 +82,22 @@ private Integer subscriptionId;
 
 	public void setGymSubscribe(GymMember gymSubscribe) {
 		this.gymSubscribe = gymSubscribe;
+	}
+	@ManyToOne 
+	@JoinColumn(name="instructor_id") 
+	public Instructor getInstructor() {
+		return instructor;
+	}
+
+	public void setInstructor(Instructor instructor) {
+		this.instructor = instructor;
+	}
+
+	@Override
+	public String toString() {
+		return "SubscriptionInfo [gymSubscribe=" + gymSubscribe + ", subscriptionId=" + subscriptionId
+				+ ", programName=" + programName + ", amountPaid=" + amountPaid + ", beginDate=" + beginDate
+				+ ", endDate=" + endDate + ", instructor=" + instructor + "]";
 	}
 
 
