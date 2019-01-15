@@ -3,10 +3,12 @@ package com.app.controller;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -15,14 +17,17 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 
-import com.app.dao.AdminDao;
 import com.app.service.AdminService;
-import com.app.service.AdminServiceImpl;
+
 
 import pojos.GymMember;
+import pojos.Instructor;
+import pojos.Login;
 
-
+@CrossOrigin
+@EnableWebMvc
 @RestController
 @RequestMapping("/admin")
 public class AdminController {
@@ -36,13 +41,99 @@ public class AdminController {
 		System.out.println("in init " + aService);
 	}
 	
-	@PostMapping
-	public String registerGymMember(@RequestBody GymMember gm) {
-		System.out.println("srvr : reg student  " + gm);
-		return aService.registerGymMember(gm);
+	@PostMapping(value="/registerMember")
+	public ResponseEntity<?> registerMember(@RequestBody GymMember gm)
+	{
+		//System.out.println("From Session-------------------"+img);
+		//v.setImgPath(img);
+		String str=aService.registerGymMember(gm);
+		if(str!=null)
+			return new ResponseEntity<String>(str,HttpStatus.CREATED);
+		return new ResponseEntity<String>("something went wrong ",HttpStatus.NOT_FOUND);
 	}
+
+	@PostMapping(value="/registerInstructor")
+	public ResponseEntity<?> registerInstructor(@RequestBody Instructor ins)
+	{
+		//System.out.println("From Session-------------------"+img);
+		//v.setImgPath(img);
+		String str=aService.registerInstructor(ins);
+		if(str!=null)
+			return new ResponseEntity<String>(str,HttpStatus.CREATED);
+		return new ResponseEntity<String>("something went wrong ",HttpStatus.NOT_FOUND);
+	}
+	@PostMapping(value="/login",headers="Accept=application/json")
+	public String login(@RequestBody Login log,HttpSession hs)
+	{
+		String usernam=log.getUserName();
+		String pass= log.getPassword();
+		Login l1 = aService.authenticateUser(usernam,pass);
+	if(l1.getRole().equals("admin")) {
+		hs.setAttribute("valid admin", l1);	
+	}
+	else
+	{
+		Object o=aService.checkSession(l1);
 	
+	if(o instanceof GymMember)
+		hs.setAttribute("valid member", (GymMember)o);
+	if(o instanceof Instructor)
+		hs.setAttribute("valid Instructor", (Instructor)o);
+		
+	}
+	return l1.getRole();
 	
+	}
+	@GetMapping("/member/{mid}")
+	public ResponseEntity<?> getMemberDetails(@PathVariable int mid) {
+		System.out.println("srvr : get stud dtls " + mid);
+		GymMember gm= aService.getMemberDetails(mid);
+		if (gm != null)
+			return new ResponseEntity<GymMember>(gm, HttpStatus.OK);
+		else // invalid id
+			return new ResponseEntity<String>("Invalid Student ID " + mid, HttpStatus.NOT_FOUND);
+	}
+	@GetMapping("/instructor/{mid}")
+	public ResponseEntity<?> getInstructorDetails(@PathVariable int tid) {
+		System.out.println("srvr : get stud dtls " + tid);
+		Instructor ins= aService.getInstructorDetails(tid);
+		if (ins != null)
+			return new ResponseEntity<Instructor>(ins, HttpStatus.OK);
+		else // invalid id
+			return new ResponseEntity<String>("Invalid Student ID " + tid, HttpStatus.NOT_FOUND);
+	}
+	@GetMapping("/member")
+	public List<GymMember> getAllMemberDetails() {
+		System.out.println("srvr : get stud dtls ");
+		return aService.getAllMemberDetails();
+	}
+	@GetMapping("/instructor")
+	public List<Instructor> getAllInstructorDetails() {
+		System.out.println("srvr : get stud dtls ");
+		return aService.getAllInstructorDetails();
+	}
+	@DeleteMapping("/{mid}")
+	public String deleteMember(@PathVariable int mid) {
+		System.out.println("srvr : del member dtls " + mid);
+		return aService.deleteMember(aService.getMemberDetails(mid));
+	}
+	@DeleteMapping("/{tid}")
+	public String deleteInstructor(@PathVariable int tid) {
+		System.out.println("srvr : del Instructor dtls " + tid);
+		return aService.deleteInstructor(aService.getInstructorDetails(tid));
+	}
+	@PutMapping("/instructor")
+	public String updateMember(@RequestBody GymMember gm) {
+		System.out.println("srvr : update Member " + gm);
+		return aService.updateMember(gm);
+
+	}
+	/*@PutMapping("/instructor")
+	public String updateInstructor(@RequestBody Instructor ins) {
+		System.out.println("srvr : update Instructor " + ins);
+		return aService.upda)(ins);
+
+	}*/
 /*
 	// get student resource
 	@GetMapping("/{sid}")
