@@ -1,4 +1,4 @@
-package pojos;
+package com.app.pojos;
 
 
 import java.util.ArrayList;
@@ -24,7 +24,7 @@ public class Instructor {
 	private double salary;
 	private String password;
 	private byte[] photo;	
-	private List<SubscriptionInfo> subscriptionInfo=new ArrayList<>();
+	//private List<SubscriptionInfo> subscriptionInfo=new ArrayList<>();
 	
 	
 	public Instructor() {
@@ -134,8 +134,8 @@ public class Instructor {
 	}
 
 
-	@LazyCollection(LazyCollectionOption.FALSE)
-	@OneToMany(mappedBy="gymSubscribe",cascade=CascadeType.ALL/*,fetch=FetchType.EAGER*/)
+	/*@LazyCollection(LazyCollectionOption.FALSE)
+	@OneToMany(mappedBy="gymSubscribe",cascade=CascadeType.ALL,fetch=FetchType.EAGER)
 	public List<SubscriptionInfo> getSubscriptionInfo() {
 		return subscriptionInfo;
 	}
@@ -144,7 +144,7 @@ public class Instructor {
 
 	public void setSubscriptionInfo(List<SubscriptionInfo> subscriptionInfo) {
 		this.subscriptionInfo = subscriptionInfo;
-	}
+	}*/
 
 
 

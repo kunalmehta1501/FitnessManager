@@ -1,4 +1,4 @@
-package pojos;
+package com.app.pojos;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
@@ -8,7 +8,7 @@ import javax.persistence.*;
 import org.hibernate.annotations.LazyCollection;
 import org.hibernate.annotations.LazyCollectionOption;
 
-import pojos.SubscriptionInfo;
+import com.app.pojos.SubscriptionInfo;
 
 @Entity
 @Table(name="gym_member")

@@ -2,10 +2,10 @@ package com.app.service;
 
 import java.util.List;
 
-import pojos.GymMember;
-import pojos.Instructor;
-import pojos.Login;
-import pojos.SubscriptionInfo;
+import com.app.pojos.GymMember;
+import com.app.pojos.Instructor;
+import com.app.pojos.Login;
+import com.app.pojos.SubscriptionInfo;
 
 public interface AdminService {
 	String registerGymMember(GymMember gm);
@@ -21,6 +21,8 @@ public interface AdminService {
 	String deleteMember(GymMember gm);
 	String deleteInstructor(Instructor ins);
 	String updateMember(GymMember gm);
-	String addSubscription(SubscriptionInfo s);
+	String addSubscription(int mid,SubscriptionInfo s);
 	String updateInstructor(Instructor ins);
+	List<SubscriptionInfo> getSubscriptionDetails(int mid);
+	
 }
