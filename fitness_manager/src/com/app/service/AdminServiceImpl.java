@@ -7,11 +7,10 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.app.dao.AdminDao;
-
-import pojos.GymMember;
-import pojos.Instructor;
-import pojos.Login;
-import pojos.SubscriptionInfo;
+import com.app.pojos.GymMember;
+import com.app.pojos.Instructor;
+import com.app.pojos.Login;
+import com.app.pojos.SubscriptionInfo;
 @Service
 @Transactional
 public class AdminServiceImpl implements AdminService {
@@ -72,9 +71,9 @@ public class AdminServiceImpl implements AdminService {
 		return aDao.updateInstructor(ins);
 	}
 	@Override
-	public String addSubscription(SubscriptionInfo s) {
+	public String addSubscription(int mid,SubscriptionInfo s) {
 		// TODO Auto-generated method stub
-		return aDao.addSubscription(s);
+		return aDao.addSubscription(mid,s);
 	}
 	@Override
 	public Object checkSession(Login l1) {
@@ -84,6 +83,11 @@ public class AdminServiceImpl implements AdminService {
 		if(l1.getRole().equals("instructor"))
 			o=aDao.getInstructorByUser(l1.getUserName());
 		return o;
+	}
+	@Override
+	public List<SubscriptionInfo> getSubscriptionDetails(int mid)
+	{
+		return aDao.getSubscriptionInfo(mid);
 	}
 	
 	

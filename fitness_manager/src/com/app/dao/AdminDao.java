@@ -2,10 +2,10 @@ package com.app.dao;
 
 import java.util.List;
 
-import pojos.GymMember;
-import pojos.Instructor;
-import pojos.Login;
-import pojos.SubscriptionInfo;
+import com.app.pojos.GymMember;
+import com.app.pojos.Instructor;
+import com.app.pojos.Login;
+import com.app.pojos.SubscriptionInfo;
 
 public interface AdminDao {
 	//String launchCourseWithStudents(Course c);
@@ -24,10 +24,11 @@ public interface AdminDao {
 	String deleteMember(GymMember gm);
 	String deleteInstructor(Instructor ins);
 	String updateMember(GymMember gm);
-	String addSubscription(SubscriptionInfo s);
+	String addSubscription(int mid,SubscriptionInfo s);
 	Instructor getInstructorByUser(String username);
 	GymMember getMemberByUser(String username);
 	String updateInstructor(Instructor ins);
+	List<SubscriptionInfo> getSubscriptionInfo(int mid);
 	
 	
 	

@@ -19,13 +19,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 
+import com.app.pojos.GymMember;
+import com.app.pojos.Instructor;
+import com.app.pojos.Login;
+import com.app.pojos.SubscriptionInfo;
 import com.app.service.AdminService;
-
-
-import pojos.GymMember;
-import pojos.Instructor;
-import pojos.Login;
-import pojos.SubscriptionInfo;
 
 @CrossOrigin
 @EnableWebMvc
@@ -70,16 +68,17 @@ public class AdminController {
 		String pass= log.getPassword();
 		Login l1 = aService.authenticateUser(usernam,pass);
 	if(l1.getRole().equals("admin")) {
-		hs.setAttribute("valid admin", l1);	
+		hs.setAttribute("admin", l1);	
 	}
 	else
 	{
 		Object o=aService.checkSession(l1);
 	
 	if(o instanceof GymMember)
-		hs.setAttribute("valid member", (GymMember)o);
+
+		hs.setAttribute("member", (GymMember)o);
 	if(o instanceof Instructor)
-		hs.setAttribute("valid Instructor", (Instructor)o);
+		hs.setAttribute("instructor", (Instructor)o);
 		
 	}
 	return l1.getRole();
@@ -113,12 +112,12 @@ public class AdminController {
 		System.out.println("srvr : get stud dtls ");
 		return aService.getAllInstructorDetails();
 	}
-	@DeleteMapping("/{mid}")
+	@DeleteMapping("member/{mid}")
 	public String deleteMember(@PathVariable int mid) {
 		System.out.println("srvr : del member dtls " + mid);
 		return aService.deleteMember(aService.getMemberDetails(mid));
 	}
-	@DeleteMapping("/{tid}")
+	@DeleteMapping("instructor/{tid}")
 	public String deleteInstructor(@PathVariable int tid) {
 		System.out.println("srvr : del Instructor dtls " + tid);
 		return aService.deleteInstructor(aService.getInstructorDetails(tid));
@@ -135,13 +134,22 @@ public class AdminController {
 		return aService.updateInstructor(ins);
 
 	}
-	@PostMapping(value="/addSubscription")
-	public ResponseEntity<?> addSubscription(@RequestBody SubscriptionInfo sub)
+	@PostMapping(value="/addSubscription/{mid}")
+	public ResponseEntity<?> addSubscription(@RequestBody SubscriptionInfo sub,@PathVariable int mid)
 	{
-		String str=aService.addSubscription(sub);
+		String str=aService.addSubscription(mid,sub);
 		if(str!=null)
 			return new ResponseEntity<String>(str,HttpStatus.CREATED);
 		return new ResponseEntity<String>("something went wrong ",HttpStatus.NOT_FOUND);
+	}
+	@GetMapping("/subscription/{mid}")
+	public ResponseEntity<?> getSubscriptionDetails(@PathVariable int mid) {
+		System.out.println("srvr : get subscription dtls " + mid);
+		List<SubscriptionInfo> sub= aService.getSubscriptionDetails(mid);
+		if (sub != null)
+			return new ResponseEntity<List<SubscriptionInfo>>(HttpStatus.OK);
+		else // invalid id
+			return new ResponseEntity<String>("something went wrong ", HttpStatus.NOT_FOUND);
 	}
 
 }

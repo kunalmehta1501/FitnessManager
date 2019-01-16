@@ -1,4 +1,4 @@
-package pojos;
+package com.app.pojos;
 import java.util.Date;
 
 import javax.persistence.*;
@@ -13,18 +13,20 @@ private Integer subscriptionId;
 	private double amountPaid;
 	private Date beginDate;
 	private Date endDate;
-	private Instructor instructor;
+	//private Instructor instructor;
+	private int tid;
 	
 	public SubscriptionInfo() {
-		System.out.println("in vehicle constr");
+		System.out.println("in subscription Info constr");
 	}
 	
-	public SubscriptionInfo(String programName, double amountPaid, Date beginDate, Date endDate) {
+	public SubscriptionInfo(String programName, double amountPaid, Date beginDate, Date endDate,int tid) {
 		super();
 		this.programName = programName;
 		this.amountPaid = amountPaid;
 		this.beginDate = beginDate;
 		this.endDate = endDate;
+		this.tid=tid;
 	}
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
@@ -83,7 +85,7 @@ private Integer subscriptionId;
 	public void setGymSubscribe(GymMember gymSubscribe) {
 		this.gymSubscribe = gymSubscribe;
 	}
-	@ManyToOne 
+/*	@ManyToOne 
 	@JoinColumn(name="instructor_id") 
 	public Instructor getInstructor() {
 		return instructor;
@@ -92,12 +94,23 @@ private Integer subscriptionId;
 	public void setInstructor(Instructor instructor) {
 		this.instructor = instructor;
 	}
+*/
+	
+	
+	@Column(name="t_id")
+	public int getTid() {
+		return tid;
+	}
+
+	public void setTid(int tid) {
+		this.tid = tid;
+	}
 
 	@Override
 	public String toString() {
 		return "SubscriptionInfo [gymSubscribe=" + gymSubscribe + ", subscriptionId=" + subscriptionId
 				+ ", programName=" + programName + ", amountPaid=" + amountPaid + ", beginDate=" + beginDate
-				+ ", endDate=" + endDate + ", instructor=" + instructor + "]";
+				+ ", endDate=" + endDate + ", instructor="  + "]";
 	}
 
 
