@@ -10,6 +10,9 @@ import javax.persistence.*;
 import org.hibernate.annotations.LazyCollection;
 import org.hibernate.annotations.LazyCollectionOption;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 
 
 @Entity
@@ -23,8 +26,9 @@ public class Instructor {
 	private String trainerPhone;
 	private double salary;
 	private String password;
-	private byte[] photo;	
-	//private List<SubscriptionInfo> subscriptionInfo=new ArrayList<>();
+	private byte[] photo;
+	//@JsonIgnore
+	private List<SubscriptionInfo> subscriptionInfo=new ArrayList<>();
 	
 	
 	public Instructor() {
@@ -134,7 +138,7 @@ public class Instructor {
 	}
 
 
-	/*@LazyCollection(LazyCollectionOption.FALSE)
+	@LazyCollection(LazyCollectionOption.FALSE)
 	@OneToMany(mappedBy="gymSubscribe",cascade=CascadeType.ALL,fetch=FetchType.EAGER)
 	public List<SubscriptionInfo> getSubscriptionInfo() {
 		return subscriptionInfo;
@@ -144,7 +148,7 @@ public class Instructor {
 
 	public void setSubscriptionInfo(List<SubscriptionInfo> subscriptionInfo) {
 		this.subscriptionInfo = subscriptionInfo;
-	}*/
+	}
 
 
 

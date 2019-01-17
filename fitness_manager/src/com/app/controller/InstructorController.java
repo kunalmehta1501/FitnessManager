@@ -43,26 +43,34 @@ public class InstructorController {
 	}
 	
 	@GetMapping("/member")
-	public List<GymMember> getMyMembers(HttpSession hs) {
+	public ResponseEntity<?> getMyMembers(HttpSession hs) {
 		System.out.println("srvr : get my members dtls ");
 		Instructor instr=(Instructor)hs.getAttribute("instructor");
-		return tService.getMyMembers(instr.getTrainerId());
+		List<GymMember> list=tService.getMyMembers(instr.getTrainerId());
+		if (!list.isEmpty())
+			return new ResponseEntity<List<GymMember>>(list,HttpStatus.OK);
+		else // invalid id
+			return new ResponseEntity<String>("something went wrong ", HttpStatus.NOT_FOUND);
 	}
 	
-	@PostMapping(value="/addDietPlan/{mid}")
-	public ResponseEntity<?> addSubscription(@RequestBody DietInfo diet,@PathVariable int mid)
+	@PostMapping(value="/addDiet/{mid}")
+	public ResponseEntity<?> addDiet(@RequestBody DietInfo diet,@PathVariable int mid)
 	{
 		String str=tService.addDiet(mid,diet);
 		if(str!=null)
 			return new ResponseEntity<String>(str,HttpStatus.CREATED);
 		return new ResponseEntity<String>("something went wrong ",HttpStatus.NOT_FOUND);
 	}
+	
+	
+	
+	
 	@GetMapping("/diet/{mid}")
-	public ResponseEntity<?> getSubscriptionDetails(@PathVariable int mid) {
+	public ResponseEntity<?> getDietDetails(@PathVariable int mid) {
 		System.out.println("srvr : get subscription dtls " + mid);
-		List<DietInfo> sub= tService.getDietDetails(mid);
-		if (sub != null)
-			return new ResponseEntity<List<DietInfo>>(HttpStatus.OK);
+		List<DietInfo> list= tService.getDietDetails(mid);
+		if (!list.isEmpty() )
+			return new ResponseEntity<List<DietInfo>>(list,HttpStatus.OK);
 		else // invalid id
 			return new ResponseEntity<String>("something went wrong ", HttpStatus.NOT_FOUND);
 	}

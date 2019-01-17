@@ -9,25 +9,40 @@ import org.hibernate.annotations.LazyCollection;
 import org.hibernate.annotations.LazyCollectionOption;
 
 import com.app.pojos.SubscriptionInfo;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 
 @Entity
 @Table(name="gym_member")
+
 public class GymMember {
 	
 	private Integer memberId;
+	
 	private String memberName;
+
 	private String userName;
+	
 	private String password;
+
 	private Date dob;
+	
 	private String memberEmail;
+	
 	private String memberPhone;
+	
 	private String address;
+	
 	private byte[] photo;
+	@JsonIgnore
 	private List<DietInfo> dietInfo=new ArrayList<>();
+	@JsonIgnore
 	private List<MeasurementInfo> measurementInfo=new ArrayList<>();
+	@JsonIgnore
 	private List<WorkoutInfo> workOutInfo=new ArrayList<>();
 	
 
+	@JsonIgnore
 	private List<SubscriptionInfo> subscriptionInfo=new ArrayList<>();
 	public GymMember() {
 		System.out.println("in gymMember constr");
@@ -205,16 +220,16 @@ public class GymMember {
 		workOutInfo.remove(w);
 		w.setMyId(null);
 	}
-	
 
 	@Override
 	public String toString() {
 		return "GymMember [memberId=" + memberId + ", memberName=" + memberName + ", userName=" + userName
 				+ ", password=" + password + ", dob=" + dob + ", memberEmail=" + memberEmail + ", memberPhone="
-				+ memberPhone + ", address=" + address + ", photo=" + Arrays.toString(photo) + ", dietInfo=" + dietInfo
-				+ ", measurementInfo=" + measurementInfo + ", workOutInfo=" + workOutInfo + ", subscriptionInfo="
-				+ subscriptionInfo + "]";
+				+ memberPhone + ", address=" + address + ", photo=" + Arrays.toString(photo) + "]";
 	}
+	
+
+	
 
 	
 

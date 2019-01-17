@@ -62,13 +62,17 @@ public class AdminController {
 		return new ResponseEntity<String>("something went wrong ",HttpStatus.NOT_FOUND);
 	}
 	@PostMapping(value="/login",headers="Accept=application/json")
-	public String login(@RequestBody Login log,HttpSession hs)
+	public ResponseEntity<?>  login(@RequestBody Login log,HttpSession hs)
 	{
 		String usernam=log.getUserName();
 		String pass= log.getPassword();
 		Login l1 = aService.authenticateUser(usernam,pass);
-	if(l1.getRole().equals("admin")) {
+	if(l1!=null)
+		{
+		if(l1.getRole().equals("admin")) {
+		
 		hs.setAttribute("admin", l1);	
+		return new ResponseEntity<Login>(l1, HttpStatus.OK);
 	}
 	else
 	{
@@ -79,11 +83,14 @@ public class AdminController {
 		hs.setAttribute("member", (GymMember)o);
 	if(o instanceof Instructor)
 		hs.setAttribute("instructor", (Instructor)o);
-		
+	return new ResponseEntity<Login>(l1, HttpStatus.OK);
 	}
-	return l1.getRole();
+		}
+	return new ResponseEntity<String>("Invalid userName or Password", HttpStatus.NOT_FOUND);
+	}
 	
-	}
+	
+	
 	@GetMapping("/member/{mid}")
 	public ResponseEntity<?> getMemberDetails(@PathVariable int mid) {
 		System.out.println("srvr : get stud dtls " + mid);
@@ -103,35 +110,56 @@ public class AdminController {
 			return new ResponseEntity<String>("Invalid Student ID " + tid, HttpStatus.NOT_FOUND);
 	}
 	@GetMapping("/member")
-	public List<GymMember> getAllMemberDetails() {
-		System.out.println("srvr : get stud dtls ");
-		return aService.getAllMemberDetails();
+	public ResponseEntity<?> getAllMemberDetails() {
+		System.out.println("srvr : get member dtls ");
+	
+		if (aService.getAllMemberDetails().size()!=0)
+			return new ResponseEntity<List<GymMember>>(aService.getAllMemberDetails(),HttpStatus.OK);
+		else // invalid id
+			return new ResponseEntity<String>("something went wrong ", HttpStatus.NOT_FOUND);
+		
 	}
 	@GetMapping("/instructor")
-	public List<Instructor> getAllInstructorDetails() {
-		System.out.println("srvr : get stud dtls ");
-		return aService.getAllInstructorDetails();
+	public ResponseEntity<?> getAllInstructorDetails() {
+		System.out.println("srvr : get instructor dtls ");
+
+		if (aService.getAllInstructorDetails().size()!=0)
+			return new ResponseEntity<List<Instructor>>(aService.getAllInstructorDetails(),HttpStatus.OK);
+		else // invalid id
+			return new ResponseEntity<String>("something went wrong ", HttpStatus.NOT_FOUND);
 	}
 	@DeleteMapping("member/{mid}")
-	public String deleteMember(@PathVariable int mid) {
+	public ResponseEntity<?> deleteMember(@PathVariable int mid) {
 		System.out.println("srvr : del member dtls " + mid);
-		return aService.deleteMember(aService.getMemberDetails(mid));
+		String str=aService.deleteMember(aService.getMemberDetails(mid));
+		if(str!=null)
+			return new ResponseEntity<String>(str,HttpStatus.CREATED);
+		return new ResponseEntity<String>("something went wrong ",HttpStatus.NOT_FOUND);
 	}
 	@DeleteMapping("instructor/{tid}")
-	public String deleteInstructor(@PathVariable int tid) {
+	public ResponseEntity<?> deleteInstructor(@PathVariable int tid) {
 		System.out.println("srvr : del Instructor dtls " + tid);
-		return aService.deleteInstructor(aService.getInstructorDetails(tid));
+		String str= aService.deleteInstructor(aService.getInstructorDetails(tid));
+		if(str!=null)
+			return new ResponseEntity<String>(str,HttpStatus.CREATED);
+		return new ResponseEntity<String>("something went wrong ",HttpStatus.NOT_FOUND);
 	}
 	@PutMapping("/member")
-	public String updateMember(@RequestBody GymMember gm) {
+	public ResponseEntity<? >updateMember(@RequestBody GymMember gm) {
 		System.out.println("srvr : update Member " + gm);
-		return aService.updateMember(gm);
+		String str= aService.updateMember(gm);
+		if(str!=null)
+			return new ResponseEntity<String>(str,HttpStatus.CREATED);
+		return new ResponseEntity<String>("something went wrong ",HttpStatus.NOT_FOUND);
 
 	}
 	@PutMapping("/instructor")
-	public String updateInstructor(@RequestBody Instructor ins) {
+	public ResponseEntity<?> updateInstructor(@RequestBody Instructor ins) {
 		System.out.println("srvr : update Instructor " + ins);
-		return aService.updateInstructor(ins);
+	String str= aService.updateInstructor(ins);
+	if(str!=null)
+		return new ResponseEntity<String>(str,HttpStatus.CREATED);
+	return new ResponseEntity<String>("something went wrong ",HttpStatus.NOT_FOUND);
 
 	}
 	@PostMapping(value="/addSubscription/{mid}")
@@ -146,8 +174,8 @@ public class AdminController {
 	public ResponseEntity<?> getSubscriptionDetails(@PathVariable int mid) {
 		System.out.println("srvr : get subscription dtls " + mid);
 		List<SubscriptionInfo> sub= aService.getSubscriptionDetails(mid);
-		if (sub != null)
-			return new ResponseEntity<List<SubscriptionInfo>>(HttpStatus.OK);
+		if (sub.size()!=0)
+			return new ResponseEntity<List<SubscriptionInfo>>(sub,HttpStatus.OK);
 		else // invalid id
 			return new ResponseEntity<String>("something went wrong ", HttpStatus.NOT_FOUND);
 	}

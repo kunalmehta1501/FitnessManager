@@ -26,15 +26,14 @@ public class InstructorServiceImpl implements InstructorService {
 	}
 
 	@Override
-	public String addDiet(int mid, DietInfo diet) {
+	public String addDiet(int mid,DietInfo s) {
 		// TODO Auto-generated method stub
-		return null;
+		return tDao.addDiet(mid,s);
 	}
 
 	@Override
 	public List<DietInfo> getDietDetails(int mid) {
-		// TODO Auto-generated method stub
-		return null;
+		return tDao.getDietDetails(mid);
 	}
 	
 		
