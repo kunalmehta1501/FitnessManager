@@ -27,7 +27,9 @@ public class InstructorDaoImpl implements InstructorDao {
 	//	String jpql = "select m from GymMember m where m.memberId=any(select s.gymSubscribe.memberId from SubscriptionInfo s,Instructor ins where s.tid=ins.trainerId)";
 
 	//	return factory.getCurrentSession().createQuery(jpql, GymMember.class).getResultList();
+		@SuppressWarnings({ "deprecation", "rawtypes" })
 		Query query = factory.getCurrentSession().createSQLQuery("CALL getMember(:tid1)").setParameter("tid1",tid).addEntity(GymMember.class);
+		@SuppressWarnings({ "deprecation", "unchecked" })
 		List<GymMember> list = query.list();
 		return list;
 	}
