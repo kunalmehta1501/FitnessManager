@@ -3,9 +3,12 @@ import java.util.Date;
 
 import javax.persistence.*;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 @Table(name="subscription_info")
 public class SubscriptionInfo {
+	@JsonIgnore
 private GymMember gymSubscribe;
 private Integer subscriptionId;
 	
@@ -13,7 +16,8 @@ private Integer subscriptionId;
 	private double amountPaid;
 	private Date beginDate;
 	private Date endDate;
-	//private Instructor instructor;
+
+	private Instructor instructor;
 	private int tid;
 	
 	public SubscriptionInfo() {
@@ -85,7 +89,7 @@ private Integer subscriptionId;
 	public void setGymSubscribe(GymMember gymSubscribe) {
 		this.gymSubscribe = gymSubscribe;
 	}
-/*	@ManyToOne 
+@ManyToOne 
 	@JoinColumn(name="instructor_id") 
 	public Instructor getInstructor() {
 		return instructor;
@@ -94,7 +98,7 @@ private Integer subscriptionId;
 	public void setInstructor(Instructor instructor) {
 		this.instructor = instructor;
 	}
-*/
+
 	
 	
 	@Column(name="t_id")

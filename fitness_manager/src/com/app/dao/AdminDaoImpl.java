@@ -88,11 +88,9 @@ public class AdminDaoImpl implements AdminDao {
 	{
 		Session hs=factory.getCurrentSession();
 		hs.get(GymMember.class,mid).addSubscription(s);
-		hs.update(s);
-	
-		int i=s.getSubscriptionId();
-		System.out.println("SId="+i);
-		return "subscription added successfully with id "+i;
+        hs.save(s);
+		
+		return "subscription added successfully with id "+s.getSubscriptionId();
 	}
 	@Override
 	public Instructor getInstructorByUser(String username) {
