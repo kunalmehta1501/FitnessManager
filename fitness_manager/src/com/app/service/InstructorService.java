@@ -26,5 +26,11 @@ public interface InstructorService {
 
 	String addWorkout(int mid, WorkoutInfo w);
 
+	List<MeasurementInfo> getMeasurementByDate(int mid, String fromDate, String toDate) throws Exception;
+
+	List<DietInfo> getDietByDate(int mid, String fromDate, String toDate) throws Exception;
+
+	List<WorkoutInfo> getWorkoutByDate(int mid, String fromDate, String toDate) throws Exception;
+
 	
 }

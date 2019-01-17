@@ -72,7 +72,7 @@ public class InstructorController {
 		else // invalid id
 			return new ResponseEntity<String>("something went wrong ", HttpStatus.NOT_FOUND);
 	}
-	@PostMapping(value="/addDiet/{mid}")
+	@PostMapping(value="/addWorkout/{mid}")
 	public ResponseEntity<?> addWorkout(@RequestBody WorkoutInfo workout,@PathVariable int mid)
 	{
 		String str=tService.addWorkout(mid,workout);
@@ -84,7 +84,7 @@ public class InstructorController {
 	
 	
 	
-	@GetMapping("/diet/{mid}")
+	@GetMapping("/workout/{mid}")
 	public ResponseEntity<?> getWorkoutDetails(@PathVariable int mid) {
 		System.out.println("srvr : get subscription dtls " + mid);
 		List<WorkoutInfo> list= tService.getWorkoutDetails(mid);
@@ -93,7 +93,7 @@ public class InstructorController {
 		else // invalid id
 			return new ResponseEntity<String>("something went wrong ", HttpStatus.NOT_FOUND);
 	}
-	@PostMapping(value="/addDiet/{mid}")
+	@PostMapping(value="/addMeasurement/{mid}")
 	public ResponseEntity<?> addMeasurement(@RequestBody MeasurementInfo measurement,@PathVariable int mid)
 	{
 		String str=tService.addMeasurement(mid,measurement);
@@ -105,14 +105,60 @@ public class InstructorController {
 	
 	
 	
-	@GetMapping("/diet/{mid}")
+	@GetMapping("/measurement/{mid}")
 	public ResponseEntity<?> getMeasurementDetails(@PathVariable int mid) {
-		System.out.println("srvr : get subscription dtls " + mid);
+		System.out.println("srvr : get measurement dtls " + mid);
 		List<MeasurementInfo> list= tService.getMeasurementDetails(mid);
 		if (!list.isEmpty() )
 			return new ResponseEntity<List<MeasurementInfo>>(list,HttpStatus.OK);
 		else // invalid id
 			return new ResponseEntity<String>("something went wrong ", HttpStatus.NOT_FOUND);
+	}
+
+	@GetMapping("/measurement/{mid}/{fromDate}/{toDate}")
+	public ResponseEntity<?> getMeasurementByDate(@PathVariable int mid,@PathVariable String fromDate,@PathVariable String toDate) {
+		System.out.println("srvr : get measurement by date dtls " + mid);
+		List<MeasurementInfo> list;
+		try {
+			list = tService.getMeasurementByDate(mid,fromDate,toDate);
+			if (!list.isEmpty() )
+				return new ResponseEntity<List<MeasurementInfo>>(list,HttpStatus.OK);
+			else // invalid id
+				return new ResponseEntity<String>("something went wrong ", HttpStatus.NOT_FOUND);
+		} catch (Exception e) {
+			return new ResponseEntity<String>("something went wrong ", HttpStatus.NOT_FOUND);
+		}
+		
+	}
+	@GetMapping("/workout/{mid}/{fromDate}/{toDate}")
+	public ResponseEntity<?> getWorkoutByDate(@PathVariable int mid,@PathVariable String fromDate,@PathVariable String toDate) {
+		System.out.println("srvr : get workout by date dtls " + mid);
+		List<WorkoutInfo> list;
+		try {
+			list = tService.getWorkoutByDate(mid,fromDate,toDate);
+			if (!list.isEmpty() )
+				return new ResponseEntity<List<WorkoutInfo>>(list,HttpStatus.OK);
+			else // invalid id
+				return new ResponseEntity<String>("something went wrong ", HttpStatus.NOT_FOUND);
+		} catch (Exception e) {
+			return new ResponseEntity<String>("something went wrong ", HttpStatus.NOT_FOUND);
+		}
+		
+	}
+	@GetMapping("/diet/{mid}/{fromDate}/{toDate}")
+	public ResponseEntity<?> getDietByDate(@PathVariable int mid,@PathVariable String fromDate,@PathVariable String toDate) {
+		System.out.println("srvr : get diet by date dtls " + mid);
+		List<DietInfo> list;
+		try {
+			list = tService.getDietByDate(mid,fromDate,toDate);
+			if (!list.isEmpty() )
+				return new ResponseEntity<List<DietInfo>>(list,HttpStatus.OK);
+			else // invalid id
+				return new ResponseEntity<String>("something went wrong ", HttpStatus.NOT_FOUND);
+		} catch (Exception e) {
+			return new ResponseEntity<String>("something went wrong ", HttpStatus.NOT_FOUND);
+		}
+		
 	}
 
 }

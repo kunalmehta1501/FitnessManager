@@ -1,5 +1,6 @@
 package com.app.dao;
 
+import java.util.Date;
 import java.util.List;
 
 import com.app.pojos.DietInfo;
@@ -25,6 +26,12 @@ public interface InstructorDao {
 	String addWorkout(int mid, WorkoutInfo m);
 
 	List<WorkoutInfo> getWorkoutDetails(int mid);
+
+	List<MeasurementInfo> getMeasurementDetails(int mid, Date f, Date t);
+
+	List<WorkoutInfo> getWorkoutDetails(int mid, Date f, Date t);
+
+	List<DietInfo> getDietDetails(int mid, Date f, Date t);
 	
 	
 	

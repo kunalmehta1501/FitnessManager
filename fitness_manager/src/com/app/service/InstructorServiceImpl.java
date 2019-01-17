@@ -1,5 +1,8 @@
 package com.app.service;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -59,6 +62,25 @@ public class InstructorServiceImpl implements InstructorService {
 	@Override
 	public List<WorkoutInfo> getWorkoutDetails(int mid) {
 		return tDao.getWorkoutDetails(mid);
+	}
+
+	@Override
+	public List<MeasurementInfo> getMeasurementByDate(int mid, String fromDate, String toDate) throws Exception {
+		Date f = new SimpleDateFormat("yyyy-MM-dd").parse(fromDate);
+		Date t = new SimpleDateFormat("yyyy-MM-dd").parse(toDate);
+		return tDao.getMeasurementDetails(mid,f,t);
+	}
+	@Override
+	public List<WorkoutInfo> getWorkoutByDate(int mid, String fromDate, String toDate) throws Exception {
+		Date f = new SimpleDateFormat("yyyy-MM-dd").parse(fromDate);
+		Date t = new SimpleDateFormat("yyyy-MM-dd").parse(toDate);
+		return tDao.getWorkoutDetails(mid,f,t);
+	}
+	@Override
+	public List<DietInfo> getDietByDate(int mid, String fromDate, String toDate) throws Exception {
+		Date f = new SimpleDateFormat("yyyy-MM-dd").parse(fromDate);
+		Date t = new SimpleDateFormat("yyyy-MM-dd").parse(toDate);
+		return tDao.getDietDetails(mid,f,t);
 	}
 	
 }
