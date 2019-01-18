@@ -98,7 +98,7 @@ public class AdminController {
 		if (gm != null)
 			return new ResponseEntity<GymMember>(gm, HttpStatus.OK);
 		else // invalid id
-			return new ResponseEntity<String>("Invalid Student ID " + mid, HttpStatus.NOT_FOUND);
+			return new ResponseEntity<String>("Invalid member ID " + mid, HttpStatus.NOT_FOUND);
 	}
 	@GetMapping("/instructor/{mid}")
 	public ResponseEntity<?> getInstructorDetails(@PathVariable int tid) {
@@ -107,8 +107,27 @@ public class AdminController {
 		if (ins != null)
 			return new ResponseEntity<Instructor>(ins, HttpStatus.OK);
 		else // invalid id
-			return new ResponseEntity<String>("Invalid Student ID " + tid, HttpStatus.NOT_FOUND);
+			return new ResponseEntity<String>("Invalid instructor ID " + tid, HttpStatus.NOT_FOUND);
 	}
+	@GetMapping("/smember/{userName}")
+	public ResponseEntity<?> getMemberDetails(@PathVariable String userName) {
+		System.out.println("srvr : get stud dtls " + userName);
+		GymMember gm= aService.getMemberDetailsByUserName(userName);
+		if (gm != null)
+			return new ResponseEntity<GymMember>(gm, HttpStatus.OK);
+		else // invalid id
+			return new ResponseEntity<String>("Invalid userName" + userName, HttpStatus.NOT_FOUND);
+	}
+	@GetMapping("/sinstructor/{userName}")
+	public ResponseEntity<?> getInstructorDetails(@PathVariable String userName) {
+		System.out.println("srvr : get stud dtls " + userName);
+		Instructor ins= aService.getInstructorDetailsByUserName(userName);
+		if (ins != null)
+			return new ResponseEntity<Instructor>(ins, HttpStatus.OK);
+		else // invalid id
+			return new ResponseEntity<String>("Invalid usrName " + userName, HttpStatus.NOT_FOUND);
+	}
+	@CrossOrigin
 	@GetMapping("/member")
 	public ResponseEntity<?> getAllMemberDetails() {
 		System.out.println("srvr : get member dtls ");

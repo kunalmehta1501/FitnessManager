@@ -89,6 +89,16 @@ public class AdminServiceImpl implements AdminService {
 	{
 		return aDao.getSubscriptionInfo(mid);
 	}
+	@Override
+	public GymMember getMemberDetailsByUserName(String userName) {
+		// TODO Auto-generated method stub
+		return 	aDao.getMemberByUser(userName);
+	}
+	@Override
+	public Instructor getInstructorDetailsByUserName(String userName) {
+		// TODO Auto-generated method stub
+		return aDao.getInstructorByUser(userName);
+	}
 	
 	
 	

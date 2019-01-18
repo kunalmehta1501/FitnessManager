@@ -24,5 +24,7 @@ public interface AdminService {
 	String addSubscription(int mid,SubscriptionInfo s);
 	String updateInstructor(Instructor ins);
 	List<SubscriptionInfo> getSubscriptionDetails(int mid);
+	GymMember getMemberDetailsByUserName(String userName);
+	Instructor getInstructorDetailsByUserName(String userName);
 	
 }
