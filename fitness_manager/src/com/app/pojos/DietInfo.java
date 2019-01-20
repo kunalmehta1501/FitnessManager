@@ -1,6 +1,8 @@
 package com.app.pojos;
 
 
+import java.util.Date;
+
 import javax.persistence.*;
 
 
@@ -10,6 +12,7 @@ import javax.persistence.*;
 @Table(name="diet_info")
 public class DietInfo{
 	private Integer dietId;
+	private Date dateOfRecord;
 	private  GymMember memberId;
 	private String breakfast;
 	private String lunch;
@@ -83,6 +86,15 @@ public class DietInfo{
 	@Column(length=100,name="dinner")
 	public String getDinner() {
 		return dinner;
+	}
+	@Temporal(TemporalType.DATE)
+	@Column(name="date_of_record")
+	public Date getDateOfRecord() {
+		return dateOfRecord;
+	}
+
+	public void setDateOfRecord(Date dateOfRecord) {
+		this.dateOfRecord = dateOfRecord;
 	}
 
 

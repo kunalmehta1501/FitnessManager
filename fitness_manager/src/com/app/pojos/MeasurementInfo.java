@@ -75,7 +75,7 @@ public class MeasurementInfo {
 	@Override
 	public String toString() {
 		return "MeasurementInfo [measurementId=" + measurementId + ", typeOfMeasurement=" + typeOfMeasurement
-				+ ", gymMember=" + gymMember + ", dateOfRecord=" + dateOfRecord + ", measurement=" + measurement + "]";
+				+ ", gymMember=" + gymMember + ", dateOfRecord=" + dateOfRecord + "]";
 	}
 	
 	

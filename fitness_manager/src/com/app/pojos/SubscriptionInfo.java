@@ -16,7 +16,7 @@ private Integer subscriptionId;
 	private double amountPaid;
 	private Date beginDate;
 	private Date endDate;
-
+	@JsonIgnore
 	private Instructor instructor;
 	private int tid;
 	
@@ -114,7 +114,7 @@ private Integer subscriptionId;
 	public String toString() {
 		return "SubscriptionInfo [gymSubscribe=" + gymSubscribe + ", subscriptionId=" + subscriptionId
 				+ ", programName=" + programName + ", amountPaid=" + amountPaid + ", beginDate=" + beginDate
-				+ ", endDate=" + endDate + ", instructor="  + "]";
+				+ ", endDate=" + endDate +  "]";
 	}
 
 

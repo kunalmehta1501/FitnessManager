@@ -44,11 +44,12 @@ public class InstructorController {
 		System.out.println("in init " + tService);
 	}
 	
-	@GetMapping("/member")
-	public ResponseEntity<?> getMyMembers(HttpSession hs) {
+	@GetMapping("/member/{tid}")
+	public ResponseEntity<?> getMyMembers(@PathVariable int tid,HttpSession hs) {
 		System.out.println("srvr : get my members dtls ");
 		Instructor instr=(Instructor)hs.getAttribute("instructor");
-		List<GymMember> list=tService.getMyMembers(instr.getTrainerId());
+		System.out.println("srvr : get my members dtls ");
+		List<GymMember> list=tService.getMyMembers(tid);
 		if (!list.isEmpty())
 			return new ResponseEntity<List<GymMember>>(list,HttpStatus.OK);
 		else // invalid id
