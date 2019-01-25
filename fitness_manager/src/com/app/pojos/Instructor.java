@@ -3,12 +3,14 @@ package com.app.pojos;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Date;
 import java.util.List;
 
 import javax.persistence.*;
 
 import org.hibernate.annotations.LazyCollection;
 import org.hibernate.annotations.LazyCollectionOption;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
@@ -25,6 +27,8 @@ public class Instructor {
 	private String trainerEmail;
 	private String trainerPhone;
 	private double salary;
+	private Date availableFrom;
+	private Date availableTo;
 	private String password;
 	private byte[] photo;
 	//@JsonIgnore
@@ -148,6 +152,37 @@ public class Instructor {
 
 	public void setSubscriptionInfo(List<SubscriptionInfo> subscriptionInfo) {
 		this.subscriptionInfo = subscriptionInfo;
+	}
+
+  
+
+
+    @Column(name="avalability_from",columnDefinition="TIMESTAMP")      
+    @Temporal(TemporalType.TIMESTAMP)
+    @DateTimeFormat(pattern="yyyy-MM-dd'T'HH:mm:ss")
+	public Date getAvailableFrom() {
+		return availableFrom;
+	}
+
+
+
+	public void setAvailableFrom(Date availableFrom) {
+		this.availableFrom = availableFrom;
+	}
+
+
+
+    @Column(name="avalability_to",columnDefinition="TIMESTAMP")      
+    @Temporal(TemporalType.TIMESTAMP)
+    @DateTimeFormat(pattern="yyyy-MM-dd'T'HH:mm:ss")
+	public Date getAvailableTo() {
+		return availableTo;
+	}
+
+
+
+	public void setAvailableTo(Date availableTo) {
+		this.availableTo = availableTo;
 	}
 
 

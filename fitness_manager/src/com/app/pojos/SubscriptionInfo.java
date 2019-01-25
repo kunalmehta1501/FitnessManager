@@ -3,6 +3,8 @@ import java.util.Date;
 
 import javax.persistence.*;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
@@ -16,6 +18,8 @@ private Integer subscriptionId;
 	private double amountPaid;
 	private Date beginDate;
 	private Date endDate;
+	private Date slotFrom;
+	private Date slotTo;
 	@JsonIgnore
 	private Instructor instructor;
 	private int tid;
@@ -100,7 +104,34 @@ private Integer subscriptionId;
 	}
 
 	
-	
+	   @Column(name="slot_from",columnDefinition="TIMESTAMP")      
+	    @Temporal(TemporalType.TIMESTAMP)
+	    @DateTimeFormat(pattern="yyyy-MM-dd'T'HH:mm:ss")
+		public Date getSlotFrom() {
+			return slotFrom;
+		}
+
+
+
+		public void setSlotFrom(Date slotFrom) {
+			this.slotFrom = slotFrom;
+		}
+
+
+
+	    @Column(name="slot_to",columnDefinition="TIMESTAMP")      
+	    @Temporal(TemporalType.TIMESTAMP)
+	    @DateTimeFormat(pattern="yyyy-MM-dd'T'HH:mm:ss")
+		public Date getSlotTo() {
+			return slotTo;
+		}
+
+
+
+		public void setSlotTo(Date slotTo) {
+			this.slotTo = slotTo;
+		}
+
 	@Column(name="t_id")
 	public int getTid() {
 		return tid;
